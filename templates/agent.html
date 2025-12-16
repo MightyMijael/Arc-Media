@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}Agent Clock - Arc Media{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="header">
+        <img src="{{ url_for('static', filename='arc-media-logo.png') }}" alt="Arc Media Logo">
+        <h1>Welcome, {{ user.username }}!</h1>
+    </div>
+    <div class="agent-status">
+        Current Status: <strong>{{ status }}</strong>
+    </div>
+    <div class="agent-actions">
+        <button class="btn btn-primary btn-large punch-btn" data-action="clock_in">Clock In</button>
+        <button class="btn btn-primary btn-large punch-btn" data-action="break_start">Start Break</button>
+        <button class="btn btn-primary btn-large punch-btn" data-action="break_end">End Break</button>
+        <button class="btn btn-danger btn-large punch-btn" data-action="clock_out">Clock Out</button>
+    </div>
+    <div style="margin-top: 20px; text-align: center;">
+        <a href="{{ url_for('logout') }}" class="btn btn-secondary">Logout</a>
+    </div>
+</div>
+
+<script>
+    document.querySelectorAll('.punch-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            const action = this.getAttribute('data-action');
+            fetch('/punch', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: `action=${encodeURIComponent(action)}`
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    // Optionally update status dynamically here, or just reload the page/logic on next visit
+                    alert(data.message);
+                    location.reload(); // Reload page to show updated status
+                } else {
+                    alert('Error: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred while recording the punch.');
+            });
+        });
+    });
+</script>
+{% endblock %}

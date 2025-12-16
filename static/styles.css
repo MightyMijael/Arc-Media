@@ -1,0 +1,236 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    /* Glassmorphism background */
+    background: linear-gradient(135deg, #FF8C42, #1E88E5);
+    background-attachment: fixed; /* Ensures gradient covers whole viewport */
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px; /* Add padding to prevent touching edges on smaller screens */
+}
+
+/* Container for main content */
+.container {
+    width: 100%;
+    max-width: 1200px; /* Adjust max-width as needed */
+    height: auto; /* Let height adjust based on content */
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Card Style for Content Areas */
+.card {
+    /* Glassmorphism effect */
+    background: rgba(255, 255, 255, 0.15); /* Light translucent background */
+    backdrop-filter: blur(10px); /* Blur effect */
+    -webkit-backdrop-filter: blur(10px); /* Safari support */
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+
+    padding: 25px;
+    color: white; /* Default text color for contrast */
+}
+
+/* Header with Logo */
+.header {
+    text-align: center;
+    margin-bottom: 20px; /* Space below the header */
+}
+
+.header img {
+    max-width: 200px; /* Adjust size as needed */
+    max-height: 100px; /* Adjust size as needed */
+    display: block;
+    margin: 0 auto 10px; /* Center the image */
+}
+
+/* Navigation/Login Specific */
+.nav-card, .login-card {
+    max-width: 500px; /* Limit width for login form */
+    margin: 0 auto; /* Center the card */
+    text-align: center;
+}
+
+/* Buttons */
+.btn {
+    padding: 12px 24px;
+    margin: 5px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-primary {
+    background: linear-gradient(to right, #FF8C42, #FF6B35);
+    color: white;
+}
+
+.btn-secondary {
+    background: linear-gradient(to right, #1E88E5, #0d47a1);
+    color: white;
+}
+
+.btn-danger {
+     background: linear-gradient(to right, #e53935, #b71c1c);
+     color: white;
+ }
+
+.btn:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+}
+
+.btn-large {
+    padding: 16px 32px;
+    font-size: 1.2rem;
+}
+
+/* Agent Clock Specific */
+.agent-status {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    text-align: center;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+}
+
+.agent-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Vertical spacing for mobile */
+    align-items: center;
+}
+
+@media (min-width: 768px) {
+    .agent-actions {
+        flex-direction: row; /* Horizontal layout on larger screens */
+        justify-content: center; /* Center buttons */
+        gap: 10px; /* Adjust horizontal spacing */
+    }
+}
+
+/* Admin Dashboard Specific */
+.admin-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Responsive grid */
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.stat-card {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.admin-users, .admin-alerts {
+    margin-top: 20px;
+}
+
+.user-list, .alert-list {
+    width: 100%; /* Full width table */
+    border-collapse: collapse;
+}
+
+.user-list th, .user-list td, .alert-list th, .alert-list td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.user-list th, .alert-list th {
+    background: rgba(0, 0, 0, 0.3);
+}
+
+/* Flash Messages */
+.flash-messages {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    width: auto;
+    max-width: 400px;
+}
+
+.flash {
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.flash.success { background-color: #4CAF50; }
+.flash.error { background-color: #f44336; }
+.flash.info { background-color: #2196F3; }
+
+/* Form Styles */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 400px; /* Limit form width */
+    margin: 0 auto; /* Center form */
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+label {
+    font-weight: 500;
+    color: #f0f0f0; /* Slightly lighter than pure white for labels */
+}
+
+input[type="text"],
+input[type="password"] {
+    padding: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1); /* Slightly opaque input background */
+    color: white; /* Text color inside input */
+    font-size: 1rem;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+    outline: none;
+    border-color: #1E88E5; /* Focus border color */
+    box-shadow: 0 0 0 2px rgba(30, 136, 229, 0.2); /* Focus glow */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    body {
+        padding: 10px; /* Smaller padding on mobile */
+    }
+
+    .card {
+        padding: 20px; /* Smaller padding inside cards */
+    }
+
+    .btn-large {
+        padding: 14px 24px; /* Slightly smaller buttons */
+        font-size: 1.1rem;
+    }
+}

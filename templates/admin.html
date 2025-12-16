@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Dashboard - Arc Media{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="header">
+        <img src="{{ url_for('static', filename='arc-media-logo.png') }}" alt="Arc Media Logo">
+        <h1>Admin Dashboard</h1>
+    </div>
+    <h2>Hello, {{ user.username }}!</h2>
+    <div style="margin-bottom: 20px; text-align: center;">
+        <a href="{{ url_for('export_timesheet') }}" class="btn btn-primary">Export Timesheet (CSV)</a>
+        <a href="{{ url_for('logout') }}" class="btn btn-secondary">Logout</a>
+    </div>
+
+    <div class="admin-users">
+        <h3>User Statuses</h3>
+        <table class="user-list">
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for u in all_users %}
+                    {% if u.role != 'admin' %} <!-- Optionally hide admins from this list -->
+                        <tr>
+                            <td>{{ u.username }}</td>
+                            <td>{{ user_statuses.get(u.id, 'Unknown') }}</td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="admin-alerts">
+        <h3>Recent Break Alerts</h3>
+        {% if alerts %}
+            <table class="alert-list">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>User</th>
+                        <th>Excess Time (mins)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for alert in alerts %}
+                        <tr>
+                            <td>{{ alert.date.strftime('%Y-%m-%d') }}</td>
+                            <td>{{ alert.user.username }}</td>
+                            <td>{{ "%.2f"|format(alert.excess_time) }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No recent break alerts.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
